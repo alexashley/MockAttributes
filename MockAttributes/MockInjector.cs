@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MockAttributes.Exceptions;
+using MockAttributes.Extractors;
+using MockAttributes.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using MockAttributes.Utils;
-using MockAttributes.Extractors;
-using MockAttributes.Exceptions;
 
 namespace MockAttributes
 {
@@ -15,52 +15,46 @@ namespace MockAttributes
             extractor = extractor ?? new DefaultProxyObjectExtractor();
 
             var callerType = callerClass.GetType();
+            var injectMocksMember = GetInjectMocksClass(callerType);
 
-            var injectMocksFieldInfo = GetInjectMocksClass(callerType);
-
-            if (injectMocksFieldInfo == null)
+            if (injectMocksMember == null)
             {
                 throw new InjectMocksAttributeMissingException(callerType);
             }
-            var unsafeCreator = new UnsafeInstanceCreator();
-            var fieldsToMockedClasses = GetMockedClasses(callerType)
-                                            .ToDictionary(fieldInfo => fieldInfo.Name, fieldInfo => unsafeCreator.CreateInstance(fieldInfo.FieldType));
 
-            // inject mocked objects into test class
-            foreach (var pair in fieldsToMockedClasses)
+            var memberNamesToMocks = GetMockedClasses(callerType)
+                                            .ToDictionary(memberInfo => memberInfo.Name, CreateInstance);
+
+            foreach (var pair in memberNamesToMocks)
             {
-                InjectField(callerClass, pair.Key, pair.Value);
+                ReflectionHelpers.InjectMember(callerClass, pair.Key, pair.Value);
             }
 
-            // find constructor
-            var proxyObjects = fieldsToMockedClasses.Select(pair => extractor.Extract(pair.Value));
-            var constructor = injectMocksFieldInfo.FieldType.GetConstructor(proxyObjects.Select(o => o.GetType()).ToArray());
+            var proxyObjects = memberNamesToMocks.Select(pair => extractor.Extract(pair.Value));
+            var constructor = ReflectionHelpers.GetMemberType(injectMocksMember).GetConstructor(proxyObjects.Select(o => o.GetType()).ToArray());
 
             if (constructor == null)
             {
                 throw new NoMatchingConstructorException(callerType, proxyObjects);
             }
-
-            // inject instantiated object into test class
             var instance = constructor.Invoke(proxyObjects.ToArray());
-            InjectField(callerClass, injectMocksFieldInfo.Name, instance);
+            ReflectionHelpers.InjectMember(callerClass, injectMocksMember.Name, instance);
         }
 
-        private static void InjectField(object obj, string fieldName, object fieldValue)
+        private static MemberInfo GetInjectMocksClass(Type type)
         {
-            ReflectionHelpers.GetField(obj.GetType(), fieldName).SetValue(obj, fieldValue);
+            return ReflectionHelpers.GetMembersWithAttribute(type, typeof(InjectMocks)).FirstOrDefault();
         }
 
-        private static FieldInfo GetInjectMocksClass(Type type)
+        private static IEnumerable<MemberInfo> GetMockedClasses(Type type)
         {
-            return ReflectionHelpers.GetFieldsWithAttribute(type, typeof(InjectMocks)).FirstOrDefault();
+            return ReflectionHelpers.GetMembersWithAttribute(type, typeof(MockThis));
         }
 
-        private static IEnumerable<FieldInfo> GetMockedClasses(Type type)
+        private static object CreateInstance(MemberInfo member)
         {
-            return ReflectionHelpers.GetFieldsWithAttribute(type, typeof(MockThis));
+            var unsafeCreator = new UnsafeInstanceCreator();
+            return unsafeCreator.CreateInstance(ReflectionHelpers.GetMemberType(member));
         }
-
-
     }
 }

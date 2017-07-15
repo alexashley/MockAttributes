@@ -9,19 +9,41 @@ namespace MockAttributes.Utils
     {
         private const BindingFlags DefaultBindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
 
-        public static IEnumerable<FieldInfo> GetFieldsWithAttribute(Type type, Type attribute)
+        public static void InjectMember(object obj, string memberName, object memberValue)
         {
-            return GetFields(type).Where(field => field.GetCustomAttribute(attribute) != null);
+            var member = GetMember(obj.GetType(), memberName);
+            if (member.MemberType == MemberTypes.Property)
+            {
+                (member as PropertyInfo).SetValue(obj, memberValue);
+            } else
+            {
+                (member as FieldInfo).SetValue(obj, memberValue);
+            }
         }
 
-        public static IEnumerable<FieldInfo> GetFields(Type type)
+        public static MemberInfo GetMember(Type type, string memberName)
         {
-            return type.GetFields(DefaultBindingFlags);
+            return type.GetMember(memberName, DefaultBindingFlags).Where(IsPropertyOrField).First();
         }
 
-        public static FieldInfo GetField(Type type, string fieldName)
+        public static Type GetMemberType(MemberInfo member)
         {
-            return type.GetField(fieldName, DefaultBindingFlags);
+            return member.MemberType == MemberTypes.Property ? (member as PropertyInfo).PropertyType : (member as FieldInfo).FieldType;
+        }
+
+        public static IEnumerable<MemberInfo> GetMembersWithAttribute(Type type, Type attribute)
+        {
+            return GetMembers(type).Where(member => member.GetCustomAttribute(attribute) != null);
+        }
+
+        public static IEnumerable<MemberInfo> GetMembers(Type type)
+        {
+            return type.GetMembers(DefaultBindingFlags).Where(IsPropertyOrField);
+        }
+
+        private static bool IsPropertyOrField(MemberInfo member)
+        {
+            return new List<MemberTypes>() { MemberTypes.Property, MemberTypes.Field }.Contains(member.MemberType);
         }
     }
 }
