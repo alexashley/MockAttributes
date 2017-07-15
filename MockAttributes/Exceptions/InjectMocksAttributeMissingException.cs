@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MockAttributes
+namespace MockAttributes.Exceptions
 {
     public class InjectMocksAttributeMissingException : Exception
     {

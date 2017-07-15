@@ -6,10 +6,10 @@ namespace MockAttributes.Utils
 {
     public class UnsafeInstanceCreator
     {
-        public object CreateInstance(Type mockType)
+        public object CreateInstance(Type type)
         {
             var methodInfo = GetMethod<UnsafeInstanceCreator>(creator => creator.CreateInstance<Object>());
-            var genericMethod = methodInfo.MakeGenericMethod(mockType);
+            var genericMethod = methodInfo.MakeGenericMethod(type);
 
             return genericMethod.Invoke(this, null);
         }

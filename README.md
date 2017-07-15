@@ -6,5 +6,6 @@ See [MovieFinderTest](https://github.com/alexashley/MockAttributes/blob/master/M
 TODO:
 
 - [x] inject mocks into test
-- [ ] inject mocked objects into class under test (for `Moq` initially, although could be made more general)
-- [ ] stand-up class-under-test with mocked objects
+- [x] inject mocked objects into class under test (for `Moq` initially, although could be made more general)
+- [x] stand-up class-under-test with mocked objects
+- [ ] better test suite than the demo

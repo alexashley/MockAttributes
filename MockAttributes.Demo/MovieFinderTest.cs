@@ -1,6 +1,8 @@
 ﻿using MockAttributes.Demo.Classes;
+using MockAttributes.Extractors;
 using Moq;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Xunit;
 
@@ -20,7 +22,7 @@ namespace MockAttributes.Demo
 
         public MovieFinderTest()
         {
-            MockInjector.Inject(this);
+            MockInjector.Inject(this, new MoqProxyObjectExtractor());
 
             allMovies = GetMovieList();
         }
@@ -52,7 +54,7 @@ namespace MockAttributes.Demo
                 .Setup(repo => repo.GetMovies())
                 .Returns(allMovies);
 
-            var actualMovies = movieFinder.GetMoviesByDirector("Stanely Kubrick");
+            var actualMovies = movieFinder.GetMoviesByDirector("Stanley Kubrick");
 
             Assert.True(expectedMovies.SequenceEqual(actualMovies));
         }
