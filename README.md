@@ -5,9 +5,12 @@ See [MovieFinderTest](https://github.com/alexashley/MockAttributes/blob/master/M
 
 
 ### WIP
-- [x] inject mocks into test
-- [x] inject mocked objects into class under test (for `Moq` initially, although could be made more general)
+- [x] inject mocks into test class
+- [x] inject mocked objects into class-under-test (for `Moq` initially, although could be made more general)
 - [x] stand-up class-under-test with mocked objects
-- [ ] better test suite than the demo
+- [ ] unit tests
 - [ ] suppress CS0649 ("Field is never assigned to, and will always have its default value null")
-- [ ] support properties?
+- [ ] support properties
+- [ ] handle classes with multiple dependencies of the same type
+- [ ] fallback to property injection if no suitable constructors are found
+- [ ] expand demo
