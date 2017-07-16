@@ -7,9 +7,6 @@ namespace MockAttributes.Utils
 {
     internal class ReflectionHelpers
     {
-        private const BindingFlags DefaultBindingFlags = BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
-            // BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy;
-
         public static void InjectMember(object obj, string memberName, object memberValue)
         {
             var member = GetMember(obj.GetType(), memberName);
