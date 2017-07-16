@@ -1,0 +1,10 @@
+language: csharp
+mono: none
+dotnet: 1.1
+dist: trusty
+script:
+    - dotnet restore
+    - dotnet build -c release
+    - dotnet test MockAttributes.Demo/MockAttributes.Demo.csproj
+notifications:
+    email: false
