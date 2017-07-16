@@ -12,7 +12,7 @@ namespace MockAttributes
     {
         public static void Inject(object callerClass, IProxyObjectExtractor extractor = null)
         {
-            extractor = extractor ?? new DefaultProxyObjectExtractor();
+            extractor = extractor ?? new MoqProxyObjectExtractor();
 
             var callerType = callerClass.GetType();
             var injectMocksMember = GetInjectMocksClass(callerType);
