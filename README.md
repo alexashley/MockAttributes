@@ -18,7 +18,7 @@ By default, `MockAttributes` assumes you're using [`Moq`](https://github.com/moq
 
 If you're using hand-rolled mocks or your mocking library doesn't wrap a class around the proxy object in the way that `Moq` does, you can pass an instance of `DefaultProxyObjectExtractor` into `MockInjector.Inject`.   
 
-For any other cases, you can implement [`IProxyObjectExtractor`](https://github.com/alexashley/MockAttributes/blob/master/MockAttributes/Extractors/DefaultProxyObjectExtractor.cs).
+For any other cases, you can implement [`IProxyObjectExtractor`](https://github.com/alexashley/MockAttributes/blob/master/MockAttributes/Extractors/IProxyObjectExtractor.cs).
 
 
 ### WIP
