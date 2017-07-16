@@ -1,5 +1,4 @@
 ﻿using MockAttributes.Demo.Classes;
-using MockAttributes.Extractors;
 using Moq;
 using System.Globalization;
 using System.Linq;

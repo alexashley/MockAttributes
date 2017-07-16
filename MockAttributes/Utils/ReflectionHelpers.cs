@@ -7,8 +7,6 @@ namespace MockAttributes.Utils
 {
     internal class ReflectionHelpers
     {
-        private const BindingFlags DefaultBindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-
         public static void InjectMember(object obj, string memberName, object memberValue)
         {
             var member = GetMember(obj.GetType(), memberName);
@@ -23,7 +21,7 @@ namespace MockAttributes.Utils
 
         public static MemberInfo GetMember(Type type, string memberName)
         {
-            return type.GetMember(memberName, DefaultBindingFlags).Where(IsPropertyOrField).First();
+            return GetAllMembers(type.GetTypeInfo()).Where(member => member.Name == memberName && IsPropertyOrField(member)).First();
         }
 
         public static Type GetMemberType(MemberInfo member)
@@ -38,7 +36,18 @@ namespace MockAttributes.Utils
 
         public static IEnumerable<MemberInfo> GetMembers(Type type)
         {
-            return type.GetMembers(DefaultBindingFlags).Where(IsPropertyOrField);
+            return GetAllMembers(type.GetTypeInfo()).Where(IsPropertyOrField);
+        }
+
+        public static IEnumerable<MemberInfo> GetAllMembers(TypeInfo typeInfo, List<MemberInfo> members = null)
+        {
+            members = members ?? new List<MemberInfo>();
+            if (typeInfo == null)
+                return members;
+
+            members.AddRange(typeInfo.DeclaredMembers);
+
+            return GetAllMembers(typeInfo.BaseType?.GetTypeInfo() , members);
         }
 
         private static bool IsPropertyOrField(MemberInfo member)
