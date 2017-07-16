@@ -1,6 +1,6 @@
 # MockAttributes
 
-[![Build Status](https://travis-ci.org/alexashley/MockAnnotations.svg?branch=master)](https://travis-ci.org/alexashley/MockAttributes)
+[![Build Status](https://travis-ci.org/alexashley/MockAttributes.svg?branch=master)](https://travis-ci.org/alexashley/MockAttributes)
 
 
 Mockito-like annotations for .NET
