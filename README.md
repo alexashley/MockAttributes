@@ -1,6 +1,6 @@
 # MockAttributes
 
-[![Build Status](https://travis-ci.org/alexashley/MockAttributes.svg?branch=master)](https://travis-ci.org/alexashley/MockAttributes) | [![NuGet](https://img.shields.io/nuget/dt/MockAttributes.svg)](https://www.nuget.org/packages/MockAttributes/)
+[![Build Status](https://travis-ci.org/alexashley/MockAttributes.svg?branch=master)](https://travis-ci.org/alexashley/MockAttributes)  [![NuGet](https://img.shields.io/nuget/dt/MockAttributes.svg)](https://www.nuget.org/packages/MockAttributes/)
 
 
 Mockito-like annotations for .NET
