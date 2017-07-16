@@ -20,7 +20,7 @@ namespace MockAttributes.Demo
 
         public MovieFinderInjectedPropertiesTest()
         {
-            MockInjector.Inject(this, new MoqProxyObjectExtractor());
+            MockInjector.Inject(this);
 
             allMovies = GetMovieList();
         }

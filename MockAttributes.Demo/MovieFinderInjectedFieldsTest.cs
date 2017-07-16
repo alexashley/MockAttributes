@@ -1,7 +1,6 @@
 ﻿using MockAttributes.Demo.Classes;
 using MockAttributes.Extractors;
 using Moq;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Xunit;
@@ -24,7 +23,7 @@ namespace MockAttributes.Demo
 
         public MovieFinderInjectedFieldsTest()
         {
-            MockInjector.Inject(this, new MoqProxyObjectExtractor());
+            MockInjector.Inject(this);
 
             allMovies = GetMovieList();
         }

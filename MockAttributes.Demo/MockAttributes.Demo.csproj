@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MockAttributes.Extractors\MockAttributes.Extractors.csproj" />
     <ProjectReference Include="..\MockAttributes\MockAttributes.csproj" />
   </ItemGroup>
 
