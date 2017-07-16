@@ -1,4 +1,8 @@
 # MockAttributes
+
+[![Build Status](https://travis-ci.org/alexashley/MockAnnotations.svg?branch=master)](https://travis-ci.org/alexashley/MockAttributes)
+
+
 Mockito-like annotations for .NET
 
 See [MovieFinderTest](https://github.com/alexashley/MockAttributes/blob/master/MockAttributes.Demo/MovieFinderInjectedPropertiesTest.cs) for a usage example
