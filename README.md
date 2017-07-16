@@ -1,12 +1,16 @@
 # MockAttributes
 
-[![Build Status](https://travis-ci.org/alexashley/MockAttributes.svg?branch=master)](https://travis-ci.org/alexashley/MockAttributes)
+[![Build Status](https://travis-ci.org/alexashley/MockAttributes.svg?branch=master)](https://travis-ci.org/alexashley/MockAttributes) | [![NuGet](https://img.shields.io/nuget/dt/MockAttributes.svg)](https://www.nuget.org/packages/MockAttributes/)
 
 
 Mockito-like annotations for .NET
 
 See [MovieFinderTest](https://github.com/alexashley/MockAttributes/blob/master/MockAttributes.Demo/MovieFinderInjectedPropertiesTest.cs) for a usage example
 
+### Installation
+Visual Studio Package Manager console: `Install-Package MockAttributes` 
+
+`dotnet cli`: `nuget install MockAttributes`
 
 ### Usage
 
