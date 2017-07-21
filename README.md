@@ -10,11 +10,15 @@ See [MovieFinderTest](https://github.com/alexashley/MockAttributes/blob/master/M
 ### Installation
 Visual Studio Package Manager Console: 
 
-`Install-Package MockAttributes` 
+`Install-Package MockAttributes`  
 
-`dotnet cli`: 
+Nuget:
 
 `nuget install MockAttributes`
+
+dotnet core:
+
+`dotnet add package MockAttributes`
 
 ### Usage
 
