@@ -8,9 +8,13 @@ Mockito-like annotations for .NET
 See [MovieFinderTest](https://github.com/alexashley/MockAttributes/blob/master/MockAttributes.Demo/MovieFinderInjectedPropertiesTest.cs) for a usage example
 
 ### Installation
-Visual Studio Package Manager console: `Install-Package MockAttributes` 
+Visual Studio Package Manager Console: 
 
-`dotnet cli`: `nuget install MockAttributes`
+`Install-Package MockAttributes` 
+
+`dotnet cli`: 
+
+`nuget install MockAttributes`
 
 ### Usage
 
